@@ -12,4 +12,8 @@
     <string name="action_settings">Paramètres</string>
     <string name="permission_rationale">Accès aux contacts requis</string>
     <string name="drawer_calendar">Calendrier</string>
+    <string name="drawer_teams">Equipes</string>
+    <string name="drawer_booking">Réserver</string>
+    <string name="drawer_trips">Mes Voyages</string>
+    <string name="drawer_settings">Paramètres</string>
 </resources>

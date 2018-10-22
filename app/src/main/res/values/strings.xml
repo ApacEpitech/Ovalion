@@ -21,4 +21,10 @@
     <string name="drawer_calendar">Calendar</string>
     <string name="title_activity_settings" translatable="false">SettingsActivity</string>
     <string name="permission_rationale">Access to contacts is required</string>
+    <string name="title_activity_trips" translatable="false">TripsActivity</string>
+    <string name="title_activity_teams" translatable="false">TeamsActivity</string>
+    <string name="drawer_teams">Teams</string>
+    <string name="drawer_booking">Booking</string>
+    <string name="drawer_trips">Trips</string>
+    <string name="drawer_settings">Settings</string>
 </resources>

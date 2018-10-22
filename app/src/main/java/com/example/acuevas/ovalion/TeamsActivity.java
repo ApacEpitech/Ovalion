@@ -14,13 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class CalendarActivity extends AppCompatActivity
+public class TeamsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar);
+        setContentView(R.layout.activity_teams);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -32,7 +32,7 @@ public class CalendarActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_calendar);
+        navigationView.setCheckedItem(R.id.nav_teams);
     }
 
     @Override
@@ -46,14 +46,10 @@ public class CalendarActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
-    }
+    public boolean onCreateOptionsMenu(Menu menu) {return true;}
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return true;
-    }
+    public boolean onOptionsItemSelected(MenuItem item) {return true;}
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -83,7 +79,6 @@ public class CalendarActivity extends AppCompatActivity
     protected void onNewIntent(Intent intent) {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_calendar);
+        navigationView.setCheckedItem(R.id.nav_teams);
     }
-
 }
