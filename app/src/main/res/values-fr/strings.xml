@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="error_invalid_password">Mot de passe trop court</string>
+    <string name="error_field_required">Champ requis</string>
+    <string name="error_incorrect_password">Mot de passe incorrect</string>
+    <string name="action_sign_in_short">Connexion</string>
+    <string name="action_sign_in">Connexion ou inscription</string>
+    <string name="error_invalid_email">Email invalide</string>
+    <string name="navigation_drawer_open">Ouvrir la navigation</string>
+    <string name="navigation_drawer_close">Fermer la navigation</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="permission_rationale">Accès aux contacts requis</string>
     <string name="drawer_calendar">Calendrier</string>
 </resources>

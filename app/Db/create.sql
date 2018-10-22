@@ -18,13 +18,13 @@ CREATE TABLE user(
 	ID INTEGER AUTOINCREMENT PRIMARY KEY,
 	name varchar(50),
 	mail varchar(100),
-	password varchar(255),
+	password varchar(255)
 );
 
 CREATE TABLE type(
 	ID INTEGER AUTOINCREMENT PRIMARY KEY,
 	shortType varchar(3),
-	name varchar(30),
+	name varchar(30)
 );
 
 CREATE TABLE booking(
