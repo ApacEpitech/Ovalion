@@ -11,13 +11,12 @@ import java.sql.SQLException;
 
 
 public class SQLConnection {
-    private static final String LOG = "DEBUG";
-    private static String ip = "192.168.3.85";
-    private static String port = "1433";
-    private static String classs = "net.sourceforge.jtds.jdbc.Driver";
-    private static String db = "THTData";
-    private static String userName = "sa";
-    private static String password = "admin";
+    private static String ip = "10.109.253.139";
+    private static String port = "3306";
+    private static String classs = "com.mysql.jdbc.Driver";
+    private static String db = "ovalion";
+    private static String userName = "ben";
+    private static String password = "camion";
     private Connection instance;
 
     public SQLConnection() throws SQLException {
@@ -31,13 +30,13 @@ public class SQLConnection {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             try {
-                Class.forName(classs);
-                ConnURL = "jdbc:jtds:sqlserver://" + ip + ":" + port + ";"
-                        + "databaseName=" + db + ";user=" + userName + ";password="
-                        + password + ";";
-                instance = DriverManager.getConnection(ConnURL);
-            } catch (SQLException | ClassNotFoundException e) {
-                Log.d(LOG, e.getMessage());
+                Class.forName(classs).newInstance();
+                ConnURL = "jdbc:mysql://" + ip + ":" + port +"/"
+                        + db;
+                instance = DriverManager.getConnection(ConnURL, userName, password);
+                System.out.println("test");
+            } catch ( SQLException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -47,7 +46,7 @@ public class SQLConnection {
     }
 
     public boolean isValidUser(String mail, String password)  throws SQLException  {
-        String sql = "Select count(*) as count from USERS where mail=? and password=?";
+        String sql = "Select count(*) as count from USER where mail=? and password=?";
         PreparedStatement statement = instance.prepareStatement(sql);
         statement.setString(1, mail);
         statement.setString(2, password);

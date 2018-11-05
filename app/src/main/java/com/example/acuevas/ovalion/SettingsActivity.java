@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -36,6 +37,12 @@ public class SettingsActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        Context context = this.getApplication();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        System.out.println(preferences.getString("email", null));
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         ImageView imageLanguage = findViewById(R.id.languageChanger);
         imageLanguage.setClickable(true);
 
@@ -78,7 +85,6 @@ public class SettingsActivity extends AppCompatActivity
             }
         });
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_settings);
     }
