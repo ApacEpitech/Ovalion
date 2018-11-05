@@ -16,8 +16,11 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
+import java.sql.SQLException;
 import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity
@@ -42,7 +45,7 @@ public class SettingsActivity extends AppCompatActivity
 
         System.out.println(preferences.getString("email", null));
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         ImageView imageLanguage = findViewById(R.id.languageChanger);
         imageLanguage.setClickable(true);
 
@@ -87,6 +90,15 @@ public class SettingsActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_settings);
+
+        try {
+            SQLConnection connection = new SQLConnection();
+            Spinner teamSpinner = findViewById(R.id.spinner);
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, connection.getAllTeams());
+            teamSpinner.setAdapter(spinnerArrayAdapter);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -100,10 +112,14 @@ public class SettingsActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {return true;}
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {return true;}
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return true;
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

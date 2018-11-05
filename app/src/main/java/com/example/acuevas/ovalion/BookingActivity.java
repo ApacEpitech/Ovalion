@@ -10,6 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import java.sql.SQLException;
 
 public class BookingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,6 +35,18 @@ public class BookingActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_booking);
+
+        try {
+            SQLConnection connection = new SQLConnection();
+            Spinner ticketSpinner = findViewById(R.id.spinnerTypeTicket);
+            Spinner busSpinner = findViewById(R.id.spinnerTypeBus);
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, connection.getAllTypeBusTrip());
+            busSpinner.setAdapter(spinnerArrayAdapter);
+            spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, connection.getAllTypeTicket());
+            ticketSpinner.setAdapter(spinnerArrayAdapter);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -51,7 +67,9 @@ public class BookingActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {return true;}
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return true;
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
