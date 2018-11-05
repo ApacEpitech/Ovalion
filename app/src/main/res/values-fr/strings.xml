@@ -17,4 +17,5 @@
     <string name="drawer_trips">Mes Voyages</string>
     <string name="drawer_settings">Paramètres</string>
     <string name="language_image_content_desc">Drapeau anglais</string>
+    <string name="allTeams">Toutes les équipes</string>
 </resources>

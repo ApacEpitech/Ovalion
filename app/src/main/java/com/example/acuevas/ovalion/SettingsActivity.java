@@ -16,6 +16,7 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -93,9 +94,22 @@ public class SettingsActivity extends AppCompatActivity
 
         try {
             SQLConnection connection = new SQLConnection();
-            Spinner teamSpinner = findViewById(R.id.spinner);
+            final Spinner teamSpinner = findViewById(R.id.spinner);
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, connection.getAllTeams());
             teamSpinner.setAdapter(spinnerArrayAdapter);
+            teamSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    if (teamSpinner.getSelectedItem().toString().equals("All teams") || teamSpinner.getSelectedItem().toString().equals("Toutes les équipes")) {
+                        editor.putString("favoriteTeamName", "allTeams");
+                    } else {
+                        editor.putString("favoriteTeamName", teamSpinner.getSelectedItem().toString());
+                    }
+                    editor.apply();
+                }
+            });
         } catch (SQLException e) {
             e.printStackTrace();
         }

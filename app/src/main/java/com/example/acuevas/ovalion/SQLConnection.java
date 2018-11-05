@@ -117,4 +117,15 @@ public class SQLConnection {
         return results;
     }
 
+    public ArrayList<Battle> getAllBookingForUser(String userMail) throws SQLException {
+        String sql = "Select ID, dateBattle, teamHome, teamVisitors from battle b, user u where u.mail=? and b.personID=u.ID";
+        PreparedStatement statement = instance.prepareStatement(sql);
+        statement.setString(1, userMail);
+        ResultSet resultSet = statement.executeQuery();
+        ArrayList<Battle> battles = new ArrayList<>();
+        while (resultSet.next()) {
+            battles.add(new Battle(resultSet.getInt(1),resultSet.getDate(2),resultSet.getInt(3),resultSet.getInt(4)));
+        }
+        return battles;
+    }
 }
