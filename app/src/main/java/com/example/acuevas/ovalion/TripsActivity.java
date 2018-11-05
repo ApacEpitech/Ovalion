@@ -20,6 +20,7 @@ public class TripsActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getIntent().setAction("created");
         setContentView(R.layout.activity_trips);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -80,5 +81,18 @@ public class TripsActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_trips);
+    }
+
+    @Override
+    protected void onResume() {
+        String action = getIntent().getAction();
+        if (action == null || !action.equals("created")) {
+            Intent intent = new Intent(this, TripsActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            getIntent().setAction(null);
+        }
+        super.onResume();
     }
 }

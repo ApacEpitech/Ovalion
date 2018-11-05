@@ -21,6 +21,7 @@ public class TeamsActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teams);
+        getIntent().setAction("created");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -80,5 +81,18 @@ public class TeamsActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_teams);
+    }
+
+    @Override
+    protected void onResume() {
+        String action = getIntent().getAction();
+        if (action == null || !action.equals("created")) {
+            Intent intent = new Intent(this, TeamsActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            getIntent().setAction(null);
+        }
+        super.onResume();
     }
 }

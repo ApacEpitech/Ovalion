@@ -14,4 +14,11 @@
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="86dp" />
+
+    <ImageView
+        android:id="@+id/languageChanger"
+        android:contentDescription="@string/language_image_content_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </android.support.constraint.ConstraintLayout>

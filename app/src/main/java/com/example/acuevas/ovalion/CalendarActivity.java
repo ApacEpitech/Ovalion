@@ -23,6 +23,7 @@ public class CalendarActivity extends AppCompatActivity
         setContentView(R.layout.activity_calendar);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getIntent().setAction("created");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -84,6 +85,19 @@ public class CalendarActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_calendar);
+    }
+
+    @Override
+    protected void onResume() {
+        String action = getIntent().getAction();
+        if (action == null || !action.equals("created")) {
+            Intent intent = new Intent(this, CalendarActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            getIntent().setAction(null);
+        }
+        super.onResume();
     }
 
 }
