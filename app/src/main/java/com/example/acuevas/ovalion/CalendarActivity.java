@@ -1,7 +1,9 @@
 package com.example.acuevas.ovalion;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,9 +13,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.acuevas.ovalion.domain.Battle;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class CalendarActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +43,28 @@ public class CalendarActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_calendar);
+        List<Battle> battles = new ArrayList<>();
+        try {
+            SQLConnection sqlConnection = new SQLConnection();
+            ResultSet resultSet = sqlConnection.getBattlesByFavoriteTeamName("allTeams");
+            while (resultSet.next()) {
+                Battle battle = new Battle(
+                        resultSet.getInt(1),
+                        resultSet.getDate(2),
+                        resultSet.getInt(3),
+                        resultSet.getInt(4)
+                );
+                battles.add(battle);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        battles = battles.stream().sorted(Comparator.comparing(Battle::getDateBattle))
+                .collect(Collectors.toList());
+        for (Battle battle : battles) {
+            System.out.println(battle.toString());
+            //TODO add to listView
+        }
     }
 
     @Override

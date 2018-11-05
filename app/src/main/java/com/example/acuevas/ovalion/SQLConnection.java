@@ -58,6 +58,31 @@ public class SQLConnection {
         return count != 0;
     }
 
+    public ResultSet getBattlesByFavoriteTeamName(String favoriteTeamName) throws SQLException   {
+        String sql = null;
+        PreparedStatement statement = null;
+
+        if (!favoriteTeamName.equalsIgnoreCase("allTeams")) {
+            sql = "Select * from battle where teamHome=? or teamVisitors=?";
+            statement = instance.prepareStatement(sql);
+            statement.setString(1, favoriteTeamName);
+            statement.setString(2, favoriteTeamName);
+        } else {
+            sql = "Select * from battle";
+            statement = instance.prepareStatement(sql);
+        }
+        return statement.executeQuery();
+    }
+
+    public ResultSet getBookingByUserIdAndMatchId(int userId, int battleId) throws SQLException   {
+        String sql = "Select * from booking where userId=? and battleId=?";
+        PreparedStatement statement = instance.prepareStatement(sql);
+        statement.setInt(1, userId);
+        statement.setInt(2, battleId);
+
+        return statement.executeQuery();
+    }
+
     public ArrayList<String> getAllTeams() throws SQLException {
         String sql = "Select name from team order by name";
         PreparedStatement statement = instance.prepareStatement(sql);
