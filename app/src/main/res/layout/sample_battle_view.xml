@@ -1,0 +1,26 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.acuevas.ovalion.BattleView
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="40dp">
+        <ImageView
+            android:id="@+id/homeTeam"
+            android:contentDescription="@string/homeTeam"
+            android:minWidth="30dp"
+            android:maxWidth="30dp"/>
+        <TextView android:id="@+id/dateOrScore"/>
+        <TextView android:id="@+id/dateOrHour"/>
+        <TextView android:id="@+id/location"/>
+        <ImageView
+            android:id="@+id/visitorTeam"
+            android:contentDescription="@string/homeTeam"
+            android:minWidth="30dp"
+            android:maxWidth="30dp"/>
+    </com.example.acuevas.ovalion.BattleView>
+</FrameLayout>

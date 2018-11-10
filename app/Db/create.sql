@@ -14,6 +14,7 @@ CREATE TABLE battle(
 	dateBattle DATE,
 	teamHome INTEGER,
 	teamVisitors INTEGER,
+	results VARCHAR(7) DEFAULT "0-0",
 	FOREIGN KEY(teamHome) REFERENCES team(ID),
 	FOREIGN KEY(teamVisitors) REFERENCES team(ID)
 );

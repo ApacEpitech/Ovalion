@@ -18,4 +18,6 @@
     <string name="drawer_settings">Paramètres</string>
     <string name="language_image_content_desc">Drapeau anglais</string>
     <string name="allTeams">Toutes les équipes</string>
+    <string name="homeTeam">Equipe locale</string>
+    <string name="awayTeam">Equipe visiteurs</string>
 </resources>

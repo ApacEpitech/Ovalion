@@ -29,4 +29,6 @@
     <string name="drawer_settings">Settings</string>
     <string name="language_image_content_desc">French flag</string>
     <string name="allTeams">All teams</string>
+    <string name="homeTeam">Home team</string>
+    <string name="awayTeam">Away Team</string>
 </resources>

@@ -2,6 +2,8 @@ package com.example.acuevas.ovalion;
 
 import android.os.StrictMode;
 
+import com.example.acuevas.ovalion.domain.Battle;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -58,23 +60,7 @@ public class SQLConnection {
         return count != 0;
     }
 
-    public ResultSet getBattlesByFavoriteTeamName(String favoriteTeamName) throws SQLException   {
-        String sql = null;
-        PreparedStatement statement = null;
-
-        if (!favoriteTeamName.equalsIgnoreCase("allTeams")) {
-            sql = "Select * from battle where teamHome=? or teamVisitors=?";
-            statement = instance.prepareStatement(sql);
-            statement.setString(1, favoriteTeamName);
-            statement.setString(2, favoriteTeamName);
-        } else {
-            sql = "Select * from battle";
-            statement = instance.prepareStatement(sql);
-        }
-        return statement.executeQuery();
-    }
-
-    public ResultSet getBookingByUserIdAndMatchId(int userId, int battleId) throws SQLException   {
+    public ResultSet getBookingByUserIdAndMatchId(int userId, int battleId) throws SQLException {
         String sql = "Select * from booking where userId=? and battleId=?";
         PreparedStatement statement = instance.prepareStatement(sql);
         statement.setInt(1, userId);
@@ -118,14 +104,43 @@ public class SQLConnection {
     }
 
     public ArrayList<Battle> getAllBookingForUser(String userMail) throws SQLException {
-        String sql = "Select ID, dateBattle, teamHome, teamVisitors from battle b, user u where u.mail=? and b.personID=u.ID";
+        String sql = "Select b.ID, b.dateBattle, b.teamHome, b.teamVisitors, b.results, t.location from battle b, user u, booking bo, team t where u.mail=? and U.ID=bo.personID and b.ID=bo.battleID and t.ID=b.teamHome";
         PreparedStatement statement = instance.prepareStatement(sql);
         statement.setString(1, userMail);
         ResultSet resultSet = statement.executeQuery();
         ArrayList<Battle> battles = new ArrayList<>();
         while (resultSet.next()) {
-            battles.add(new Battle(resultSet.getInt(1),resultSet.getDate(2),resultSet.getInt(3),resultSet.getInt(4)));
+            battles.add(new Battle(resultSet.getInt(1), resultSet.getDate(2), resultSet.getInt(3), resultSet.getInt(4), resultSet.getString(5), resultSet.getString(6)));
         }
         return battles;
+    }
+
+    public ArrayList<Battle> getAllBattleByTeam(Integer ID) throws SQLException {
+        String sql = "Select b.ID, b.dateBattle, b.teamHome, b.teamVisitors, b.results, t.location from battle b, team t where (b.teamHome=? or b.teamVisitors=?) and t.ID=b.teamHome";
+        PreparedStatement statement = instance.prepareStatement(sql);
+        statement.setInt(1, ID);
+        statement.setInt(2, ID);
+        ResultSet resultSet = statement.executeQuery();
+        ArrayList<Battle> battles = new ArrayList<>();
+        while (resultSet.next()) {
+            battles.add(new Battle(resultSet.getInt(1), resultSet.getDate(2), resultSet.getInt(3), resultSet.getInt(4), resultSet.getString(5), resultSet.getString(6)));
+        }
+        return battles;
+    }
+
+    public String getNameTeamByID(int ID) throws SQLException {
+        String sql = "Select name from team where ID=?";
+        PreparedStatement statement = instance.prepareStatement(sql);
+        statement.setInt(1, ID);
+        ResultSet resultSet = statement.executeQuery();
+        return resultSet.getString(1);
+    }
+
+    public int getIDTeamByName(String name) throws SQLException {
+        String sql = "Select ID from team where name=?";
+        PreparedStatement statement = instance.prepareStatement(sql);
+        statement.setString(1, name);
+        ResultSet resultSet = statement.executeQuery();
+        return resultSet.getInt(1);
     }
 }

@@ -12,11 +12,17 @@ public class Battle {
 
     private int teamVisitors;
 
-    public Battle(int id, Date dateBattle, int teamHome, int teamVisitors) {
+    private String result;
+
+    private String location;
+
+    public Battle(int id, Date dateBattle, int teamHome, int teamVisitors, String result, String location) {
         this.id = id;
         this.dateBattle = dateBattle;
         this.teamHome = teamHome;
         this.teamVisitors = teamVisitors;
+        this.result = result;
+        this.location = location;
     }
 
     public int getId() {
@@ -49,6 +55,22 @@ public class Battle {
 
     public void setTeamVisitors(int teamVisitors) {
         this.teamVisitors = teamVisitors;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override

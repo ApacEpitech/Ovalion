@@ -1,6 +1,8 @@
 package com.example.acuevas.ovalion;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -46,16 +48,9 @@ public class CalendarActivity extends AppCompatActivity
         List<Battle> battles = new ArrayList<>();
         try {
             SQLConnection sqlConnection = new SQLConnection();
-            ResultSet resultSet = sqlConnection.getBattlesByFavoriteTeamName("allTeams");
-            while (resultSet.next()) {
-                Battle battle = new Battle(
-                        resultSet.getInt(1),
-                        resultSet.getDate(2),
-                        resultSet.getInt(3),
-                        resultSet.getInt(4)
-                );
-                battles.add(battle);
-            }
+            SharedPreferences prefs = getBaseContext().getSharedPreferences("general_settings", Context.MODE_PRIVATE);
+            int prefTeamID = prefs.getInt("favoriteTeamID", 0);
+            battles = sqlConnection.getAllBattleByTeam(prefTeamID);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

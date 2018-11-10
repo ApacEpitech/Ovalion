@@ -103,9 +103,13 @@ public class SettingsActivity extends AppCompatActivity
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication());
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     if (teamSpinner.getSelectedItem().toString().equals("All teams") || teamSpinner.getSelectedItem().toString().equals("Toutes les équipes")) {
-                        editor.putString("favoriteTeamName", "allTeams");
+                        editor.putInt("favoriteTeamID", 0);
                     } else {
-                        editor.putString("favoriteTeamName", teamSpinner.getSelectedItem().toString());
+                        try {
+                            editor.putInt("favoriteTeamID", connection.getIDTeamByName(teamSpinner.getSelectedItem().toString()));
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
                     editor.apply();
                 }
